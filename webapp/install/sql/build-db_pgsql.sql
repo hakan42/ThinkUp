@@ -19,7 +19,7 @@ CREATE SEQUENCE tu_encoded_locations_id_seq;
 --
 
 CREATE TABLE tu_encoded_locations (
-  id INT4 DEFAULT nextval('tu_encoded_locations_id_seq'),
+  id smallint DEFAULT nextval('tu_encoded_locations_id_seq'),
   short_name varchar(255) NOT NULL,
   full_name varchar(255) NOT NULL,
   latlng varchar(50) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE tu_follower_count (
   network_user_id varchar(30) NOT NULL,
   network varchar(20) NOT NULL,
   DATE date NOT NULL,
-  count INT4 NOT NULL
+  count smallint NOT NULL
 );
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE tu_follows (
   follower_id varchar(30) NOT NULL,
   last_seen timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   first_seen timestamp NOT NULL DEFAULT '0001-01-01 00:00:00',
-  active INT4 NOT NULL DEFAULT '1',
+  active smallint NOT NULL DEFAULT '1',
   network varchar(20) NOT NULL DEFAULT 'twitter',
   debug_api_call varchar(255) NOT NULL
 );
@@ -72,7 +72,7 @@ CREATE TABLE tu_group_member_count (
   network varchar(20) NOT NULL,
   member_user_id varchar(30) NOT NULL,
   DATE date NOT NULL,
-  count INT4  NOT NULL
+  count smallint  NOT NULL
 );
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE tu_group_members (
 CREATE SEQUENCE tu_groups_id_seq;
 
 CREATE TABLE tu_groups (
-  id INT4 DEFAULT nextval('tu_groups_id_seq'),
+  id smallint DEFAULT nextval('tu_groups_id_seq'),
   group_id varchar(50) NOT NULL,
   network varchar(20) NOT NULL,
   group_name varchar(50) NOT NULL,
@@ -126,10 +126,10 @@ CREATE TABLE tu_groups (
 CREATE SEQUENCE tu_hashtags_id_seq;
 
 CREATE TABLE tu_hashtags (
-  id INT4 DEFAULT nextval('tu_hashtags_id_seq'),
+  id smallint DEFAULT nextval('tu_hashtags_id_seq'),
   hashtag varchar(255) NOT NULL,
   network varchar(20) NOT NULL DEFAULT 'twitter',
-  count_cache INT4 NOT NULL DEFAULT '0',
+  count_cache smallint NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
 
 );
@@ -140,7 +140,7 @@ CREATE TABLE tu_hashtags (
 
 CREATE TABLE tu_hashtags_posts (
   post_id varchar(80) NOT NULL,
-  hashtag_id INT4 NOT NULL,
+  hashtag_id smallint NOT NULL,
   network varchar(20) NOT NULL DEFAULT 'twitter'
 );
 
@@ -150,9 +150,9 @@ CREATE TABLE tu_hashtags_posts (
 
 CREATE TABLE tu_insight_baselines (
   DATE date NOT NULL,
-  instance_id INT4 NOT NULL,
+  instance_id smallint NOT NULL,
   slug varchar(100) NOT NULL,
-  value INT4 NOT NULL
+  value smallint NOT NULL
 );
 
 --
@@ -168,14 +168,14 @@ CREATE TABLE tu_insight_baselines (
 CREATE SEQUENCE tu_insights_id_seq;
 
 CREATE TABLE tu_insights (
-  id INT4 DEFAULT nextval('tu_insights_id_seq'),
-  instance_id INT4 NOT NULL,
+  id smallint DEFAULT nextval('tu_insights_id_seq'),
+  instance_id smallint NOT NULL,
   slug varchar(100) NOT NULL,
   prefix varchar(255) NOT NULL,
   text TEXT DEFAULT '' NOT NULL,
   related_data text,
   DATE date NOT NULL,
-  emphasis INT4 NOT NULL DEFAULT '0',
+  emphasis smallint NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
 
 );
@@ -193,30 +193,30 @@ CREATE TABLE tu_insights (
 CREATE SEQUENCE tu_instances_id_seq;
 
 CREATE TABLE tu_instances (
-  id INT4 DEFAULT nextval('tu_instances_id_seq'),
+  id smallint DEFAULT nextval('tu_instances_id_seq'),
   network_user_id varchar(30) NOT NULL,
   network_viewer_id varchar(30) NOT NULL,
   network_username varchar(255) NOT NULL,
   last_post_id varchar(80) NOT NULL,
   crawler_last_run timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  total_posts_by_owner INT4 DEFAULT '0',
-  total_posts_in_system INT4 DEFAULT '0',
-  total_replies_in_system INT4 DEFAULT NULL,
-  total_follows_in_system INT4 DEFAULT NULL,
+  total_posts_by_owner smallint DEFAULT '0',
+  total_posts_in_system smallint DEFAULT '0',
+  total_replies_in_system smallint DEFAULT NULL,
+  total_follows_in_system smallint DEFAULT NULL,
   posts_per_day decimal(7,2) DEFAULT NULL,
   posts_per_week decimal(7,2) DEFAULT NULL,
   percentage_replies decimal(4,2) DEFAULT NULL,
   percentage_links decimal(4,2) DEFAULT NULL,
   earliest_post_in_system TIMESTAMP DEFAULT NULL,
   earliest_reply_in_system TIMESTAMP DEFAULT NULL,
-  is_archive_loaded_posts INT4 NOT NULL DEFAULT '0',
-  is_archive_loaded_replies INT4 NOT NULL DEFAULT '0',
-  is_archive_loaded_follows INT4 NOT NULL DEFAULT '0',
-  is_public INT4 NOT NULL DEFAULT '0',
-  is_active INT4 NOT NULL DEFAULT '1',
+  is_archive_loaded_posts smallint NOT NULL DEFAULT '0',
+  is_archive_loaded_replies smallint NOT NULL DEFAULT '0',
+  is_archive_loaded_follows smallint NOT NULL DEFAULT '0',
+  is_public smallint NOT NULL DEFAULT '0',
+  is_active smallint NOT NULL DEFAULT '1',
   network varchar(20) NOT NULL DEFAULT 'twitter',
-  favorites_profile INT4 DEFAULT '0',
-  owner_favs_in_system INT4 DEFAULT '0',
+  favorites_profile smallint DEFAULT '0',
+  owner_favs_in_system smallint DEFAULT '0',
   PRIMARY KEY (id)
 
 );
@@ -234,12 +234,12 @@ CREATE TABLE tu_instances (
 CREATE SEQUENCE tu_instances_twitter_id_seq;
 
 CREATE TABLE tu_instances_twitter (
-  id INT4 DEFAULT nextval('tu_instances_twitter_id_seq'),
-  last_page_fetched_replies INT4 NOT NULL DEFAULT '1',
-  last_page_fetched_tweets INT4 NOT NULL DEFAULT '1',
+  id smallint DEFAULT nextval('tu_instances_twitter_id_seq'),
+  last_page_fetched_replies smallint NOT NULL DEFAULT '1',
+  last_page_fetched_tweets smallint NOT NULL DEFAULT '1',
   last_favorite_id varchar(80) DEFAULT NULL,
-  last_unfav_page_checked INT4 DEFAULT '0',
-  last_page_fetched_favorites INT4 DEFAULT NULL,
+  last_unfav_page_checked smallint DEFAULT '0',
+  last_page_fetched_favorites smallint DEFAULT NULL,
   PRIMARY KEY (id)
 
 );
@@ -266,14 +266,14 @@ CREATE TABLE tu_invites (
 CREATE SEQUENCE tu_links_id_seq;
 
 CREATE TABLE tu_links (
-  id INT4 DEFAULT nextval('tu_links_id_seq'),
+  id smallint DEFAULT nextval('tu_links_id_seq'),
   url varchar(255) NOT NULL,
   expanded_url varchar(255) NOT NULL DEFAULT '',
   title varchar(255) NOT NULL,
   description varchar(255) NOT NULL,
   image_src varchar(255) NOT NULL DEFAULT '',
   caption varchar(255) NOT NULL,
-  post_key INT4 NOT NULL,
+  post_key smallint NOT NULL,
   error varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (id)
 
@@ -292,10 +292,10 @@ CREATE TABLE tu_links (
 CREATE SEQUENCE tu_links_short_id_seq;
 
 CREATE TABLE tu_links_short (
-  id INT4 DEFAULT nextval('tu_links_short_id_seq'),
-  link_id INT4 NOT NULL,
+  id smallint DEFAULT nextval('tu_links_short_id_seq'),
+  link_id smallint NOT NULL,
   short_url varchar(100)  NOT NULL,
-  click_count INT4 NOT NULL,
+  click_count smallint NOT NULL,
   first_seen timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 
@@ -314,11 +314,11 @@ CREATE TABLE tu_links_short (
 CREATE SEQUENCE tu_mentions_id_seq;
 
 CREATE TABLE tu_mentions (
-  id INT4 DEFAULT nextval('tu_mentions_id_seq'),
+  id smallint DEFAULT nextval('tu_mentions_id_seq'),
   user_id varchar(30) NOT NULL,
   user_name varchar(255) NOT NULL,
   network varchar(20) NOT NULL DEFAULT 'twitter',
-  count_cache INT4 NOT NULL DEFAULT '0',
+  count_cache smallint NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
 
 );
@@ -330,7 +330,7 @@ CREATE TABLE tu_mentions (
 CREATE TABLE tu_mentions_posts (
   post_id varchar(80) NOT NULL,
   author_user_id varchar(30) NOT NULL,
-  mention_id INT4 NOT NULL,
+  mention_id smallint NOT NULL,
   network varchar(20) NOT NULL DEFAULT 'twitter'
 );
 
@@ -347,7 +347,7 @@ CREATE TABLE tu_mentions_posts (
 CREATE SEQUENCE tu_options_option_id_seq;
 
 CREATE TABLE tu_options (
-  option_id INT4 DEFAULT nextval('tu_options_option_id_seq'),
+  option_id smallint DEFAULT nextval('tu_options_option_id_seq'),
   namespace varchar(50) NOT NULL,
   option_name varchar(50) NOT NULL,
   option_value varchar(255) NOT NULL,
@@ -370,9 +370,9 @@ CREATE TABLE tu_options (
 CREATE SEQUENCE tu_owner_instances_id_seq;
 
 CREATE TABLE tu_owner_instances (
-  id INT4 DEFAULT nextval('tu_owner_instances_id_seq'),
-  owner_id INT4 NOT NULL,
-  instance_id INT4 NOT NULL,
+  id smallint DEFAULT nextval('tu_owner_instances_id_seq'),
+  owner_id smallint NOT NULL,
+  instance_id smallint NOT NULL,
   oauth_access_token varchar(255) DEFAULT NULL,
   oauth_access_token_secret varchar(255) DEFAULT NULL,
   auth_error varchar(255) DEFAULT NULL,
@@ -393,18 +393,18 @@ CREATE TABLE tu_owner_instances (
 CREATE SEQUENCE tu_owners_id_seq;
 
 CREATE TABLE tu_owners (
-  id INT4 DEFAULT nextval('tu_owners_id_seq'),
+  id smallint DEFAULT nextval('tu_owners_id_seq'),
   full_name varchar(200) NOT NULL,
   pwd varchar(255) DEFAULT NULL,
   pwd_salt varchar(255) NOT NULL,
   email varchar(200) NOT NULL,
-  activation_code INT4 NOT NULL DEFAULT '0',
+  activation_code smallint NOT NULL DEFAULT '0',
   joined DATE NOT NULL DEFAULT '0001-01-01',
-  is_activated INT4 NOT NULL DEFAULT '0',
-  is_admin INT4 NOT NULL DEFAULT '0',
+  is_activated smallint NOT NULL DEFAULT '0',
+  is_admin smallint NOT NULL DEFAULT '0',
   last_login DATE NOT NULL DEFAULT '0001-01-01',
   password_token varchar(64) DEFAULT NULL,
-  failed_logins INT4 NOT NULL DEFAULT '0',
+  failed_logins smallint NOT NULL DEFAULT '0',
   account_status varchar(150) NOT NULL DEFAULT '',
   api_key varchar(32) NOT NULL,
   PRIMARY KEY (id)
@@ -424,7 +424,7 @@ CREATE TABLE tu_owners (
 CREATE SEQUENCE tu_places_id_seq;
 
 CREATE TABLE tu_places (
-  id INT4 DEFAULT nextval('tu_places_id_seq'),
+  id smallint DEFAULT nextval('tu_places_id_seq'),
   place_id varchar(100) DEFAULT NULL,
   place_type varchar(100) DEFAULT NULL,
   name varchar(100) DEFAULT NULL,
@@ -453,7 +453,7 @@ CREATE TABLE tu_places (
 CREATE SEQUENCE tu_places_posts_id_seq;
 
 CREATE TABLE tu_places_posts (
-  id INT4 DEFAULT nextval('tu_places_posts_id_seq'),
+  id smallint DEFAULT nextval('tu_places_posts_id_seq'),
   longlat point NOT NULL,
   post_id varchar(80) NOT NULL,
   place_id varchar(100) DEFAULT NULL,
@@ -475,7 +475,7 @@ CREATE TABLE tu_places_posts (
 CREATE SEQUENCE tu_plugins_id_seq;
 
 CREATE TABLE tu_plugins (
-  id INT4 DEFAULT nextval('tu_plugins_id_seq'),
+  id smallint DEFAULT nextval('tu_plugins_id_seq'),
   name varchar(255) NOT NULL,
   folder_name varchar(255) NOT NULL,
   description varchar(255) DEFAULT NULL,
@@ -500,10 +500,10 @@ CREATE TABLE tu_plugins (
 CREATE SEQUENCE tu_post_errors_id_seq;
 
 CREATE TABLE tu_post_errors (
-  id INT4 DEFAULT nextval('tu_post_errors_id_seq'),
+  id smallint DEFAULT nextval('tu_post_errors_id_seq'),
   post_id varchar(80) NOT NULL,
   network varchar(20) NOT NULL DEFAULT 'twitter',
-  error_code INT4 NOT NULL,
+  error_code smallint NOT NULL,
   error_text varchar(255) NOT NULL,
   error_issued_to_user_id varchar(30) NOT NULL,
   PRIMARY KEY (id)
@@ -523,13 +523,13 @@ CREATE TABLE tu_post_errors (
 CREATE SEQUENCE tu_posts_id_seq;
 
 CREATE TABLE tu_posts (
-  id INT4 DEFAULT nextval('tu_posts_id_seq'),
+  id smallint DEFAULT nextval('tu_posts_id_seq'),
   post_id varchar(80) NOT NULL,
   author_user_id varchar(30) NOT NULL,
   author_username varchar(50) NOT NULL,
   author_fullname varchar(50) NOT NULL,
   author_avatar varchar(255) NOT NULL,
-  author_follower_count INT4 NOT NULL,
+  author_follower_count smallint NOT NULL,
   post_text TEXT DEFAULT '' NOT NULL,
   is_protected INT2 NOT NULL DEFAULT '1',
   source varchar(255) DEFAULT NULL,
@@ -540,18 +540,18 @@ CREATE TABLE tu_posts (
   pub_date TIMESTAMP NOT NULL,
   in_reply_to_user_id varchar(30) DEFAULT NULL,
   in_reply_to_post_id varchar(80) DEFAULT NULL,
-  reply_count_cache INT4 NOT NULL DEFAULT '0',
+  reply_count_cache smallint NOT NULL DEFAULT '0',
   is_reply_by_friend INT2 NOT NULL DEFAULT '0',
   in_retweet_of_post_id varchar(80) DEFAULT NULL,
-  old_retweet_count_cache INT4 NOT NULL DEFAULT '0',
+  old_retweet_count_cache smallint NOT NULL DEFAULT '0',
   is_retweet_by_friend INT2 NOT NULL DEFAULT '0',
-  reply_retweet_distance INT4 NOT NULL DEFAULT '0',
+  reply_retweet_distance smallint NOT NULL DEFAULT '0',
   network varchar(20) NOT NULL DEFAULT 'twitter',
-  is_geo_encoded INT4 NOT NULL DEFAULT '0',
+  is_geo_encoded smallint NOT NULL DEFAULT '0',
   in_rt_of_user_id varchar(30) DEFAULT NULL,
-  retweet_count_cache INT4 NOT NULL DEFAULT '0',
-  retweet_count_api INT4 NOT NULL DEFAULT '0',
-  favlike_count_cache INT4 NOT NULL DEFAULT '0',
+  retweet_count_cache smallint NOT NULL DEFAULT '0',
+  retweet_count_api smallint NOT NULL DEFAULT '0',
+  favlike_count_cache smallint NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
 
 );
@@ -569,7 +569,7 @@ CREATE TABLE tu_posts (
 CREATE SEQUENCE tu_stream_data_id_seq;
 
 CREATE TABLE tu_stream_data (
-  id INT4 DEFAULT nextval('tu_stream_data_id_seq'),
+  id smallint DEFAULT nextval('tu_stream_data_id_seq'),
   data TEXT DEFAULT '' NOT NULL,
   network varchar(20) NOT NULL DEFAULT 'twitter',
   PRIMARY KEY (id)
@@ -581,9 +581,9 @@ CREATE TABLE tu_stream_data (
 --
 
 CREATE TABLE tu_stream_procs (
-  process_id INT4 NOT NULL,
+  process_id smallint NOT NULL,
   email varchar(100) NOT NULL,
-  instance_id INT4 NOT NULL,
+  instance_id smallint NOT NULL,
   last_report timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (process_id)
 
@@ -602,9 +602,9 @@ CREATE TABLE tu_stream_procs (
 CREATE SEQUENCE tu_user_errors_id_seq;
 
 CREATE TABLE tu_user_errors (
-  id INT4 DEFAULT nextval('tu_user_errors_id_seq'),
+  id smallint DEFAULT nextval('tu_user_errors_id_seq'),
   user_id varchar(30) NOT NULL,
-  error_code INT4 NOT NULL,
+  error_code smallint NOT NULL,
   error_text varchar(255) NOT NULL,
   error_issued_to_user_id varchar(30) NOT NULL,
   network varchar(20) NOT NULL DEFAULT 'twitter',
@@ -625,7 +625,7 @@ CREATE TABLE tu_user_errors (
 CREATE SEQUENCE tu_users_id_seq;
 
 CREATE TABLE tu_users (
-  id INT4 DEFAULT nextval('tu_users_id_seq'),
+  id smallint DEFAULT nextval('tu_users_id_seq'),
   user_id varchar(30) NOT NULL,
   user_name varchar(255) NOT NULL,
   full_name varchar(255) NOT NULL,
@@ -634,16 +634,16 @@ CREATE TABLE tu_users (
   description text,
   url varchar(255) DEFAULT NULL,
   is_protected INT2 NOT NULL,
-  follower_count INT4 NOT NULL,
-  friend_count INT4 NOT NULL DEFAULT '0',
-  post_count INT4 NOT NULL DEFAULT '0',
+  follower_count smallint NOT NULL,
+  friend_count smallint NOT NULL DEFAULT '0',
+  post_count smallint NOT NULL DEFAULT '0',
   last_updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   found_in varchar(100) DEFAULT NULL,
   last_post timestamp NOT NULL DEFAULT '0001-01-01 00:00:00',
   joined timestamp NOT NULL DEFAULT '0001-01-01 00:00:00',
   last_post_id varchar(80) NOT NULL DEFAULT '',
   network varchar(20) NOT NULL DEFAULT 'twitter',
-  favorites_count INT4 DEFAULT NULL,
+  favorites_count smallint DEFAULT NULL,
   PRIMARY KEY (id)
 
 );
