@@ -1,11 +1,12 @@
 language: php
 php:
   - 5.4
-  - 5.3
-  - 5.2
+#  - 5.3
+#  - 5.2
 
 before_script:
  - mysql -e 'create database thinkup'
+ - psql -c 'create database thinkup;' -U postgres
  - cp extras/dev/config/config.inc.php webapp/config.inc.php
  - cp extras/dev/config/config.tests.inc.php tests/config.tests.inc.php
  - chmod -R 777 webapp/data
@@ -13,4 +14,5 @@ before_script:
  - touch webapp/data/logs/stream.log
  - touch webapp/data/logs/crawler.log
 
-script: php tests/all_unit_tests.php
+script: php tests/all_PgSQL_model_tests.php
+

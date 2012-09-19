@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * ThinkUp/webapp/_lib/model/class.BackupMySQLDAO.php
+ * ThinkUp/webapp/_lib/model/class.BackupPgSQLDAO.php
  *
- * Copyright (c) 2009-2012 Mark Wilkie
+ * Copyright (c) 2009-2012 Mark Wilkie, Christoffer Viken
  *
  * LICENSE:
  *
@@ -21,13 +21,14 @@
  * <http://www.gnu.org/licenses/>.
  *
  *
- * Link MySQL Data Access Object
+ * Link PgSQL Data Access Object
  *
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2012 Mark Wilkie
+ * @copyright 2009-2012 Mark Wilkie, Christoffer Viken
  * @author Mark Wilkie <mwilkie[at]gmail[dot]com>
+ * @author Christoffer Viken <christoffer[at]viken[dot]me
  */
-class BackupMySQLDAO extends PDODAO implements BackupDAO {
+class BackupPgSQLDAO extends PDODAO implements BackupDAO {
 
     public function import($zipfile) {
         if (file_exists($zipfile)) {

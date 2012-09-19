@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * ThinkUp/tests/TestOfBackupMySQLDAO.php
+ * ThinkUp/tests/TestOfBackupPgSQLDAO.php
  *
- * Copyright (c) 2009-2012 Mark Wilkie
+ * Copyright (c) 2009-2012 Mark Wilkie, Christoffer Viken
  *
  * LICENSE:
  *
@@ -24,17 +24,18 @@
  * @author Mark Wilkie <mark[at]bitterpill[dot]org>
  * @license http://www.gnu.org/licenses/gpl.html
  * @copyright 2009-2012 Mark Wilkie
+ * @author Christoffer Viken <christoffer[at]viken[dot]me
  */
 require_once dirname(__FILE__).'/init.tests.php';
 require_once THINKUP_WEBAPP_PATH.'_lib/extlib/simpletest/autorun.php';
 require_once THINKUP_WEBAPP_PATH.'config.inc.php';
 
-class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
+class TestOfBackupPgSQLDAO extends ThinkUpUnitTestCase {
 
     public function setUp() {
         parent::setUp();
-        new BackupMySQLDAO();
-        $this->pdo = BackupMySQLDAO::$PDO;
+        new BackupPgSQLDAO();
+        $this->pdo = BackupPgSQLDAO::$PDO;
     }
 
     public function tearDown() {
@@ -53,7 +54,7 @@ class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
      * Test constructor
      */
     public function testConstructor() {
-        $dao = new BackupMySQLDAO();
+        $dao = new BackupPgSQLDAO();
         $this->assertTrue(isset($dao));
     }
 
@@ -61,7 +62,7 @@ class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
      * test export data
      */
     public function testExportData() {
-        $dao = new BackupMySQLDAO();
+        $dao = new BackupPgSQLDAO();
         $export_file = $dao->export();
         $this->assertTrue( file_exists($export_file) );
         $zip_stats = stat($export_file);
@@ -92,7 +93,7 @@ class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
      * test import data, no such file
      */
     public function testImportDataNoFile() {
-        $dao = new BackupMySQLDAO();
+        $dao = new BackupPgSQLDAO();
         $export_file = $dao->export();
         $this->expectException('Exception', 'Unable to open import file: jshshsgsgs-badfile.nofile');
         $dao->import('jshshsgsgs-badfile.nofile');
@@ -102,7 +103,7 @@ class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
      * test import data, bad zip file
      */
     public function testImportDataBadFile() {
-        $dao = new BackupMySQLDAO();
+        $dao = new BackupPgSQLDAO();
         $zipfile = 'tests/data/backup/bad-zip-archive.zip';
         $this->expectException('Exception', 'Unable to open import file, corrupted zip file?: ' . $zipfile);
         $dao->import($zipfile);
@@ -112,7 +113,7 @@ class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
      * test import data, good zip file, but data missing
      */
     public function testImportDataBadFile2() {
-        $dao = new BackupMySQLDAO();
+        $dao = new BackupPgSQLDAO();
         $zipfile = 'tests/data/backup/bad-zip-archive2.zip';
         $this->expectException('Exception', 'Unable to open import file, corrupted zip file?: ' . $zipfile);
         $dao->import($zipfile);
@@ -122,7 +123,7 @@ class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
      * test import data
      */
     public function testImportData() {
-        $dao = new BackupMySQLDAO();
+        $dao = new BackupPgSQLDAO();
 
         $stmt = $this->pdo->query("show tables");
         $data = $stmt->fetchAll();
@@ -153,7 +154,7 @@ class TestOfBackupMySQLDAO extends ThinkUpUnitTestCase {
      * test import data, drop new tables not in backup
      */
     public function testImportDataDropNewTables() {
-        $dao = new BackupMySQLDAO();
+        $dao = new BackupPgSQLDAO();
 
         $stmt = $this->pdo->query("show tables");
         $data = $stmt->fetchAll();
